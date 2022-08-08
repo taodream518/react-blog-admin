@@ -1,17 +1,15 @@
-import {
-  Form,
-  Input,
-  Checkbox,
-  Link,
-  Button,
-  Space,
-} from '@arco-design/web-react';
+/*
+ * @Descripttion:
+ * @Author: Coder-Tao
+ * @Date: 2022-07-25 16:26:05
+ * @LastEditTime: 2022-07-28 15:09:20
+ */
+import useLocale from '@/utils/useLocale';
+import { Button, Form, Input, Space } from '@arco-design/web-react';
 import { FormInstance } from '@arco-design/web-react/es/Form';
 import { IconLock, IconUser } from '@arco-design/web-react/icon';
-import React, { useEffect, useRef, useState } from 'react';
-import axios from 'axios';
-import useStorage from '@/utils/useStorage';
-import useLocale from '@/utils/useLocale';
+import React, { useRef, useState } from 'react';
+import { login as loginApi } from '../../api/user';
 import locale from './locale';
 import styles from './style/index.module.less';
 
@@ -19,35 +17,24 @@ export default function LoginForm() {
   const formRef = useRef<FormInstance>();
   const [errorMessage, setErrorMessage] = useState('');
   const [loading, setLoading] = useState(false);
-  const [loginParams, setLoginParams, removeLoginParams] =
-    useStorage('loginParams');
 
   const t = useLocale(locale);
 
-  const [rememberPassword, setRememberPassword] = useState(!!loginParams);
-
-  function afterLoginSuccess(params) {
-    // 记住密码
-    if (rememberPassword) {
-      setLoginParams(JSON.stringify(params));
-    } else {
-      removeLoginParams();
-    }
-    // 记录登录状态
-    localStorage.setItem('userStatus', 'login');
+  function afterLoginSuccess({ token }) {
+    // 记录登录状态 缓存token
+    localStorage.setItem('token', token);
     // 跳转首页
     window.location.href = '/';
   }
 
-  function login(params) {
+  async function login(params) {
     setErrorMessage('');
     setLoading(true);
-    axios
-      .post('/api/user/login', params)
+    loginApi(params)
       .then((res) => {
-        const { status, msg } = res.data;
-        if (status === 'ok') {
-          afterLoginSuccess(params);
+        const { data, code, msg } = res;
+        if (code === 0) {
+          afterLoginSuccess(data);
         } else {
           setErrorMessage(msg || t['login.form.login.errMsg']);
         }
@@ -63,16 +50,6 @@ export default function LoginForm() {
     });
   }
 
-  // 读取 localStorage，设置初始值
-  useEffect(() => {
-    const rememberPassword = !!loginParams;
-    setRememberPassword(rememberPassword);
-    if (formRef.current && rememberPassword) {
-      const parseParams = JSON.parse(loginParams);
-      formRef.current.setFieldsValue(parseParams);
-    }
-  }, [loginParams]);
-
   return (
     <div className={styles['login-form-wrapper']}>
       <div className={styles['login-form-title']}>{t['login.form.title']}</div>
@@ -84,15 +61,15 @@ export default function LoginForm() {
         className={styles['login-form']}
         layout="vertical"
         ref={formRef}
-        initialValues={{ userName: 'admin', password: 'admin' }}
+        initialValues={{ username: 'admin', password: 'admin' }}
       >
         <Form.Item
-          field="userName"
-          rules={[{ required: true, message: t['login.form.userName.errMsg'] }]}
+          field="username"
+          rules={[{ required: true, message: t['login.form.username.errMsg'] }]}
         >
           <Input
             prefix={<IconUser />}
-            placeholder={t['login.form.userName.placeholder']}
+            placeholder={t['login.form.username.placeholder']}
             onPressEnter={onSubmitClick}
           />
         </Form.Item>
@@ -107,12 +84,6 @@ export default function LoginForm() {
           />
         </Form.Item>
         <Space size={16} direction="vertical">
-          <div className={styles['login-form-password-actions']}>
-            <Checkbox checked={rememberPassword} onChange={setRememberPassword}>
-              {t['login.form.rememberPassword']}
-            </Checkbox>
-            <Link>{t['login.form.forgetPassword']}</Link>
-          </div>
           <Button type="primary" long onClick={onSubmitClick} loading={loading}>
             {t['login.form.login']}
           </Button>

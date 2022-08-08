@@ -1,3 +1,9 @@
+/*
+ * @Descripttion:
+ * @Author: Coder-Tao
+ * @Date: 2022-07-25 16:26:05
+ * @LastEditTime: 2022-07-29 17:28:50
+ */
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link, Card, Skeleton, Tag, Typography } from '@arco-design/web-react';
@@ -24,7 +30,7 @@ function Announcement() {
   };
 
   useEffect(() => {
-    fetchData();
+    // fetchData();
   }, []);
 
   function getTagColor(type) {

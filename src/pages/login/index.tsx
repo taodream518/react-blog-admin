@@ -1,3 +1,9 @@
+/*
+ * @Descripttion:
+ * @Author: Coder-Tao
+ * @Date: 2022-07-25 16:26:05
+ * @LastEditTime: 2022-07-29 14:29:14
+ */
 import React, { useEffect } from 'react';
 import Footer from '@/components/Footer';
 import Logo from '@/assets/logo.svg';
@@ -14,7 +20,7 @@ function Login() {
     <div className={styles.container}>
       <div className={styles.logo}>
         <Logo />
-        <div className={styles['logo-text']}>Arco Design Pro</div>
+        <div className={styles['logo-text']}>博客管理系统</div>
       </div>
       <div className={styles.banner}>
         <div className={styles['banner-inner']}>

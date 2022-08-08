@@ -76,7 +76,7 @@ function Overview() {
   };
 
   useEffect(() => {
-    fetchData();
+    // fetchData();
   }, []);
 
   return (

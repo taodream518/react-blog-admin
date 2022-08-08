@@ -1,16 +1,22 @@
+/*
+ * @Descripttion:
+ * @Author: Coder-Tao
+ * @Date: 2022-07-25 16:26:05
+ * @LastEditTime: 2022-07-28 10:21:59
+ */
 import './style/global.less';
 import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import { ConfigProvider } from '@arco-design/web-react';
+import { GlobalContext } from './context';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { userInfo } from './api/user';
 import zhCN from '@arco-design/web-react/es/locale/zh-CN';
 import enUS from '@arco-design/web-react/es/locale/en-US';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import axios from 'axios';
 import rootReducer from './store';
 import PageLayout from './layout';
-import { GlobalContext } from './context';
 import Login from './pages/login';
 import checkLogin from './utils/checkLogin';
 import changeTheme from './utils/changeTheme';
@@ -35,7 +41,7 @@ function Index() {
   }
 
   function fetchUserInfo() {
-    axios.get('/api/user/userInfo').then((res) => {
+    userInfo().then((res) => {
       store.dispatch({
         type: 'update-userInfo',
         payload: { userInfo: res.data },

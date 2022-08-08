@@ -41,21 +41,26 @@ function Navbar({ show }: { show: boolean }) {
   const userInfo = useSelector((state: GlobalState) => state.userInfo);
   const dispatch = useDispatch();
 
-  const [_, setUserStatus] = useStorage('userStatus');
   const [role, setRole] = useStorage('userRole', 'admin');
 
   const { setLang, lang, theme, setTheme } = useContext(GlobalContext);
 
   function logout() {
-    setUserStatus('logout');
+    // 清除token
+    localStorage.removeItem('token');
+    // 跳转到登录
     window.location.href = '/login';
   }
 
-  function onMenuItemClick(key) {
-    if (key === 'logout') {
-      logout();
-    } else {
-      Message.info(`You clicked ${key}`);
+  function onMenuItemClick(key: string) {
+    switch (key) {
+      case 'logout':
+        logout();
+        break;
+      case 'setting':
+        break;
+      default:
+        break;
     }
   }
 
@@ -83,14 +88,14 @@ function Navbar({ show }: { show: boolean }) {
     );
   }
 
-  const handleChangeRole = () => {
-    const newRole = role === 'admin' ? 'user' : 'admin';
-    setRole(newRole);
-  };
+  // const handleChangeRole = () => {
+  //   const newRole = role === 'admin' ? 'user' : 'admin';
+  //   setRole(newRole);
+  // };
 
   const droplist = (
     <Menu onClickMenuItem={onMenuItemClick}>
-      <Menu.SubMenu
+      {/* <Menu.SubMenu
         key="role"
         title={
           <>
@@ -107,25 +112,11 @@ function Navbar({ show }: { show: boolean }) {
           <IconTag className={styles['dropdown-icon']} />
           {t['menu.user.switchRoles']}
         </Menu.Item>
-      </Menu.SubMenu>
+      </Menu.SubMenu> */}
       <Menu.Item key="setting">
         <IconSettings className={styles['dropdown-icon']} />
         {t['menu.user.setting']}
       </Menu.Item>
-      <Menu.SubMenu
-        key="more"
-        title={
-          <div style={{ width: 80 }}>
-            <IconExperiment className={styles['dropdown-icon']} />
-            {t['message.seeMore']}
-          </div>
-        }
-      >
-        <Menu.Item key="workplace">
-          <IconDashboard className={styles['dropdown-icon']} />
-          {t['menu.dashboard.workplace']}
-        </Menu.Item>
-      </Menu.SubMenu>
 
       <Divider style={{ margin: '4px 0' }} />
       <Menu.Item key="logout">
@@ -140,7 +131,7 @@ function Navbar({ show }: { show: boolean }) {
       <div className={styles.left}>
         <div className={styles.logo}>
           <Logo />
-          <div className={styles['logo-name']}>Arco Pro</div>
+          <div className={styles['logo-name']}>博客后台管理系统</div>
         </div>
       </div>
       <ul className={styles.right}>

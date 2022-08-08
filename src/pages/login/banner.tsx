@@ -1,3 +1,9 @@
+/*
+ * @Descripttion:
+ * @Author: Coder-Tao
+ * @Date: 2022-07-25 16:26:05
+ * @LastEditTime: 2022-07-29 14:27:08
+ */
 import React from 'react';
 import { Carousel } from '@arco-design/web-react';
 import useLocale from '@/utils/useLocale';
@@ -10,20 +16,17 @@ export default function LoginBanner() {
     {
       slogan: t['login.banner.slogan1'],
       subSlogan: t['login.banner.subSlogan1'],
-      image:
-        'http://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/6c85f43aed61e320ebec194e6a78d6d3.png~tplv-uwbnlip3yd-png.png',
+      image: 'https://www.dmoe.cc/random.php',
     },
     {
       slogan: t['login.banner.slogan2'],
       subSlogan: t['login.banner.subSlogan2'],
-      image:
-        'http://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/6c85f43aed61e320ebec194e6a78d6d3.png~tplv-uwbnlip3yd-png.png',
+      image: 'https://img.paulzzh.com/touhou/random',
     },
     {
       slogan: t['login.banner.slogan3'],
       subSlogan: t['login.banner.subSlogan3'],
-      image:
-        'http://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/6c85f43aed61e320ebec194e6a78d6d3.png~tplv-uwbnlip3yd-png.png',
+      image: 'https://api.lyiqk.cn/acg',
     },
   ];
   return (

@@ -20,8 +20,8 @@ export const routes: Route[] = [
     ],
   },
   {
-    name: 'Example',
-    key: 'example',
+    name: 'menu.category',
+    key: 'category',
   },
 ];
 

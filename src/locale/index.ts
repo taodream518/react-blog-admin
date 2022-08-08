@@ -1,3 +1,9 @@
+/*
+ * @Descripttion:
+ * @Author: Coder-Tao
+ * @Date: 2022-07-25 16:26:05
+ * @LastEditTime: 2022-07-26 11:43:07
+ */
 const i18n = {
   'en-US': {
     'menu.dashboard': 'Dashboard',
@@ -40,6 +46,7 @@ const i18n = {
   'zh-CN': {
     'menu.dashboard': '仪表盘',
     'menu.dashboard.workplace': '工作台',
+    'menu.category': '分类管理',
     'menu.user.info': '用户信息',
     'menu.user.setting': '用户设置',
     'menu.user.switchRoles': '切换角色',

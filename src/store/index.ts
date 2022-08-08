@@ -1,3 +1,9 @@
+/*
+ * @Descripttion:
+ * @Author: Coder-Tao
+ * @Date: 2022-07-25 16:26:05
+ * @LastEditTime: 2022-07-28 10:48:21
+ */
 import defaultSettings from '../settings.json';
 export interface GlobalState {
   settings?: typeof defaultSettings;
@@ -15,6 +21,7 @@ export interface GlobalState {
 const initialState: GlobalState = {
   settings: defaultSettings,
   userInfo: {
+    name: '',
     permissions: {},
   },
 };
